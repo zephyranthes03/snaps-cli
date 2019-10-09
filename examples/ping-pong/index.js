@@ -9,3 +9,7 @@ wallet.registerRpcMessageHandler(async (originString, requestObject) => {
   }
 })
 
+wallet.onMetaMaskEvent('newUnapprovedTx', (tx) => {
+  console.log('new tx! ', tx)
+})
+

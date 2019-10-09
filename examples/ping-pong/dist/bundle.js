@@ -10,6 +10,10 @@ wallet.registerRpcMessageHandler(async (originString, requestObject) => {
   }
 })
 
+wallet.onMetaMaskEvent('newUnapprovedTx', (tx) => {
+  console.log('new tx! ', tx)
+})
+
 
 },{"eth-json-rpc-errors":2}],2:[function(require,module,exports){
 

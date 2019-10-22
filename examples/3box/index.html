@@ -8,14 +8,14 @@
 
 <body>
   <h1>3Box Plugin Example!</h1>
-  <p>Make sure the plugin bundle is currently hosted on localhost:8081 for this to work.</p>
+  <p>Make sure the plugin bundle is currently hosted on localhost:8087 for this to work.</p>
   <button class="connect">Connect</button>
   <button class="test">Test</button>
 </body>
 
 <script>
 
-const origin = 'http://localhost:8081/package.json'
+const origin = 'http://localhost:8087/package.json'
 const pluginOrigin = `wallet_plugin_${origin}`
 
 const connectButton = document.querySelector('button.connect')
@@ -36,10 +36,15 @@ async function send () {
       method: '3id_getLink'
     }])
 
-    alert('received back: ' + response.result)
+    let alertContent = response.result
+    try {
+      alertContent = JSON.stringify(response.result, null, 2)
+    } catch (err) { console.debug('Could not stringify result.', err) }
+
+    alert('received back: ' + alertContent)
   } catch (err) {
     console.error(err)
-    alert('Problem happened: ' + err)
+    alert('Problem happened: ' + err.message || err)
   }
 }
 

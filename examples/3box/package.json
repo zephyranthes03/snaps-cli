@@ -15,7 +15,7 @@
     "MetaMask",
     "plugin"
   ],
-  "author": "Sly Fox <fox@sly.com>",
+  "author": "Joel Torstensson <oed3933@gmail.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/MetaMask/plugin-starter/issues"
@@ -24,7 +24,7 @@
   "web3Wallet": {
     "bundle": {
       "local": "dist/bundle.js",
-      "url": "http://localhost:8081/dist/bundle.js"
+      "url": "http://localhost:8087/dist/bundle.js"
     },
     "initialPermissions": {}
   },

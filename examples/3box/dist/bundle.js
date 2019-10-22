@@ -1,10 +1,21 @@
 var regeneratorRuntime;
 () => (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-const IdentityWallet = require('identity-wallet');
-wallet.onUnlock(async () => {
-  const idWallet = new IdentityWallet({ seed: await wallet.getAppKey() });
-  const threeIdProvider = idWallet.get3idProvider();
-  wallet.registerRpcHandler((origin, req) => { return threeIdProvider.send(req) });
+const IdentityWallet = require('identity-wallet')
+
+let threeIdProvider
+
+wallet.registerRpcMessageHandler(async (_origin, req) => {
+
+  if (!threeIdProvider) {
+
+    let seed = await wallet.getAppKey()
+    if (!seed.startsWith('0x')) seed = '0x' + seed // it errors without this
+
+    const idWallet = new IdentityWallet({ seed })
+    threeIdProvider = idWallet.get3idProvider()
+  }
+
+  return threeIdProvider.send(req)
 })
 
 },{"identity-wallet":120}],2:[function(require,module,exports){

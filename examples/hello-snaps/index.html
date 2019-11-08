@@ -41,12 +41,11 @@
     sendButton.addEventListener('click', send)
 
     async function connect () {
-      await ethereum.send({
-        method: 'wallet_requestPermissions',
-        params: [{
+      const result = await ethereum.authorize({
           [snapId]: {}
-        }]
-      })
+        }
+      )
+      console.log('authorize result:', result)
     }
 
     async function send () {

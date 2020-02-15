@@ -27,6 +27,7 @@
 
     <button class="connect">Connect</button>
     <button class="sendHello">Send Hello</button>
+    <button class="sendHelloAgain">Send Hello Again</button>
   </body>
 
   <script>
@@ -36,9 +37,11 @@
 
     const connectButton = document.querySelector('button.connect')
     const sendButton = document.querySelector('button.sendHello')
+    const sendAgainButton = document.querySelector('button.sendHelloAgain')
 
     connectButton.addEventListener('click', connect)
     sendButton.addEventListener('click', send)
+    sendAgainButton.addEventListener('click', sendAgain)
 
     // here we get permissions to interact with and install the plugin
     async function connect () {
@@ -52,6 +55,7 @@
 
     // here we call the plugin's "hello" method
     async function send () {
+      console.log('send')
       try {
         const response = await ethereum.send({
           method: 'wallet_invokePlugin',
@@ -64,6 +68,23 @@
         alert('Problem happened: ' + err.message || err)
       }
     }
+
+    // here we call the plugin's "helloAgain" method
+    async function sendAgain () {
+      console.log('sendAgain')
+      try {
+        const response = await ethereum.send({
+          method: 'wallet_invokePlugin',
+          params: [snapId, {
+            method: 'bye'
+          }]
+        })
+      } catch (err) {
+        console.error(err)
+        alert('Problem happened: ' + err.message || err)
+      }
+    }
+
 
   </script>
 
